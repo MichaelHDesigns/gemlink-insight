@@ -7,13 +7,6 @@ sudo apt-get install \
       autoconf libtool ncurses-dev unzip git python python-zmq \
       zlib1g-dev wget bsdmainutils automake curl
 
-# build zend patched with addressindexing support
-git clone https://github.com/snowgem/snowgem-indexing
-cd snowgem-indexing
-chmod +x zcutil/build.sh depends/config.guess depends/config.sub autogen.sh share/genbuild.sh src/leveldb/build_detect_platform
-./zcutil/fetch-params.sh
-./zcutil/build.sh --disable-rust
-
 # install npm and use node v4
 cd ..
 sudo apt-get -y install npm
@@ -29,6 +22,9 @@ npm install snowgem/bitcore-node-snowgem
 # create bitcore node
 ./node_modules/bitcore-node-snowgem/bin/bitcore-node create snowgem-explorer
 cd snowgem-explorer
+
+wget -N https://github.com/Snowgem/Snowgem/releases/download/3000451-20190128/snowgem-linux-3000451-20190128.zip -O binary.zip
+unzip -o binary.zip
 
 # install insight api/ui
 ../node_modules/bitcore-node-snowgem/bin/bitcore-node install snowgem/insight-api-snowgem snowgem/insight-ui-snowgem
@@ -48,7 +44,7 @@ cat << EOF > bitcore-node.json
     "bitcoind": {
       "spawn": {
         "datadir": "./data",
-        "exec": "../snowgem-indexing/src/snowgemd"
+        "exec": "./snowgemd"
       }
     },
      "insight-ui-snowgem": {
@@ -70,6 +66,7 @@ whitelist=127.0.0.1
 txindex=1
 addressindex=1
 timestampindex=1
+masternodeprotection=1
 spentindex=1
 zmqpubrawtx=tcp://127.0.0.1:8332
 zmqpubhashblock=tcp://127.0.0.1:8332
