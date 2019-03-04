@@ -74,7 +74,7 @@ cat << EOF > bitcore-node.json
 }
 EOF
 
-if [ ! -d ~/snowgem-explorer/data ]; then
+if [ ! -d ~/snowgem-explorer/data/blocks ]; then
   wget -N https://github.com/Snowgem/Data/releases/download/0.0.1/blockchain_snowgem_index.zip.sf-part1 -O ~/bc.sf-part1
   wget -N https://github.com/Snowgem/Data/releases/download/0.0.1/blockchain_snowgem_index.zip.sf-part2 -O ~/bc.sf-part2
   wget -N https://github.com/Snowgem/Data/releases/download/0.0.1/blockchain_snowgem_index.zip.sf-part3 -O ~/bc.sf-part3
