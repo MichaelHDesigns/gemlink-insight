@@ -10,6 +10,8 @@ swapon /swapfile
 sudo sh -c "echo '/swapfile none swap sw 0' >> /etc/fstab"
 fi
 
+sudo apt-get update
+
 sudo apt-get install \
       build-essential pkg-config libc6-dev m4 g++-multilib \
       autoconf libtool ncurses-dev unzip git python python-zmq \
