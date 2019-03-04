@@ -39,7 +39,6 @@ npm install snowgem/bitcore-node-snowgem
 # create bitcore node
 ./node_modules/bitcore-node-snowgem/bin/bitcore-node create snowgem-explorer
 cd snowgem-explorer
-mkdir data
 
 wget -N https://github.com/Snowgem/Snowgem/releases/download/3000451-20190128/snowgem-linux-3000451-20190128.zip -O binary.zip
 unzip -o binary.zip
@@ -116,7 +115,7 @@ maxconnections=1000
 
 EOF
 
-cd !/snowgem-explorer
+cd ~/snowgem-explorer
 
 echo "Start the block explorer, open in your browser http://server_ip:3001"
 echo "./node_modules/bitcore-node-snowgem/bin/bitcore-node start"
