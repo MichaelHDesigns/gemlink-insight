@@ -76,26 +76,7 @@ cat << EOF > bitcore-node.json
 }
 EOF
 
-if [ ! -d ~/snowgem-explorer/data/blocks ]; then
-  wget -N https://github.com/Snowgem/Data/releases/download/0.0.1/blockchain_snowgem_index.zip.sf-part1 -O ~/bc.sf-part1
-  wget -N https://github.com/Snowgem/Data/releases/download/0.0.1/blockchain_snowgem_index.zip.sf-part2 -O ~/bc.sf-part2
-  wget -N https://github.com/Snowgem/Data/releases/download/0.0.1/blockchain_snowgem_index.zip.sf-part3 -O ~/bc.sf-part3
-  wget -N https://github.com/Snowgem/Data/releases/download/0.0.1/blockchain_snowgem_index.zip.sf-part4 -O ~/bc.sf-part4
-  sudo rm ~/data -r
-  git clone https://github.com/Snowgem/Data ~/data
-  cd ~/data
-  chmod +x fetch-params.sh
-  ./fetch-params.sh
-  npm install
-  cd ~
-  nodejs ~/data/joinfile.js
-  rm ~/bc.sf-part1
-  rm ~/bc.sf-part2
-  rm ~/bc.sf-part3
-  rm ~/bc.sf-part4
-  unzip -o ~/blockchain.zip -d ~/snowgem-explorer/data
-  rm ~/blockchain.zip
-fi
+#need to sync blockchain again with indexed
 
 # create snowgem.conf
 cat << EOF > data/snowgem.conf
@@ -120,4 +101,4 @@ EOF
 cd ~/snowgem-explorer
 
 echo "Start the block explorer, open in your browser http://server_ip:3001"
-echo "./node_modules/bitcore-node-snowgem/bin/bitcore-node start"
+# echo "./node_modules/bitcore-node-snowgem/bin/bitcore-node start"
