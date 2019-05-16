@@ -21,9 +21,9 @@ sudo service apache2 start
 
 # install npm and use node v4
 cd ..
-sudo apt-get -y install npm nodejs
-sudo npm install -g n
-sudo n 4
+
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo apt-get install nodejs -y
 
 # install ZeroMQ libraries
 sudo apt-get -y install libzmq3-dev
