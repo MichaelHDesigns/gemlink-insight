@@ -42,7 +42,7 @@ npm install snowgem/bitcore-node-snowgem
 ./node_modules/bitcore-node-snowgem/bin/bitcore-node create snowgem-explorer
 cd snowgem-explorer
 
-wget -N https://github.com/Snowgem/Snowgem/releases/download/v3000456-20190726/snowgem-ubuntu16.04-3000456-20190831.zip -O binary.zip
+wget -N https://github.com/Snowgem/Snowgem/releases/download/v3000457-20190909/snowgem-ubuntu16.04-3000457-20190926.zip -O binary.zip
 unzip -o binary.zip
 
 # install insight api/ui
