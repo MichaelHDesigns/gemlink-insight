@@ -94,7 +94,8 @@ rpcuser=bitcoin
 rpcpassword=local321
 uacomment=bitcore
 showmetrics=0
-maxconnections=1000
+rpcport=16112
+maxconnections=100
 
 EOF
 
