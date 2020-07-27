@@ -128,5 +128,7 @@ sh -c "$service"
 
 cd ~/snowgem-explorer
 
+systemctl enable snowgem_insight.service
+
 echo "Start the block explorer, open in your browser http://server_ip:3001"
 # echo "./node_modules/bitcore-node-snowgem/bin/bitcore-node start"
