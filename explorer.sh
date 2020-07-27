@@ -103,6 +103,12 @@ curl https://raw.githubusercontent.com/Snowgem/masternode-setup/master/fetch-par
 chmod +x fetch-params.sh
 ./fetch-params.sh
 
+#remove old one
+if [ -f /lib/systemd/system/snowgem.service ]; then
+  systemctl disable --now snowgem.service
+  rm /lib/systemd/system/snowgem.service
+fi
+
 echo "Creating service file..."
 
 service="echo '[Unit]
