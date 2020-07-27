@@ -99,6 +99,10 @@ maxconnections=100
 
 EOF
 
+curl https://raw.githubusercontent.com/Snowgem/masternode-setup/master/fetch-params.sh > fetch-params.sh
+chmod +x fetch-params.sh
+./fetch-params.sh
+
 echo "Creating service file..."
 
 service="echo '[Unit]
