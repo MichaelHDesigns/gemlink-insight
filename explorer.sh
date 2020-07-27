@@ -99,6 +99,29 @@ maxconnections=100
 
 EOF
 
+echo "Creating service file..."
+
+service="echo '[Unit]
+Description=SnowGem Insight - Block Explorer for Snowgem
+After=network-online.target
+
+[Service]
+User=root
+Group=root
+Restart=always
+RestartSec=30s
+WorkingDirectory=/root/snowgem-explorer
+ExecStart=/root/snowgem-explorer/node_modules/bitcore-node-snowgem/bin/bitcore-node start
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=snowgem-insight
+
+[Install]
+WantedBy=default.target' >> /lib/systemd/system/snowgem_insight.service"
+
+echo $service
+sh -c "$service"
+
 cd ~/snowgem-explorer
 
 echo "Start the block explorer, open in your browser http://server_ip:3001"
