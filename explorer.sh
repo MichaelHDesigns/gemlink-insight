@@ -104,9 +104,9 @@ chmod +x fetch-params.sh
 ./fetch-params.sh
 
 #remove old one
-if [ -f /lib/systemd/system/snowgem.service ]; then
-  systemctl disable --now snowgem.service
-  rm /lib/systemd/system/snowgem.service
+if [ -f /lib/systemd/system/snowgem_insight.service ]; then
+  systemctl disable --now snowgem_insight.service
+  rm /lib/systemd/system/snowgem_insight.service
 fi
 
 echo "Creating service file..."
