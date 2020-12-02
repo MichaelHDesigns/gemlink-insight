@@ -1,3 +1,3 @@
-# snowgem-insight
+# tent-insight
 
 Run ./explorer.sh

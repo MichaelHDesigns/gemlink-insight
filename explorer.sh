@@ -16,7 +16,7 @@ sudo apt-get install \
       build-essential pkg-config libc6-dev m4 g++-multilib \
       autoconf libtool ncurses-dev unzip git python python-zmq \
       zlib1g-dev wget bsdmainutils automake curl apache2 libzmq3-dev
-      
+
 sudo service apache2 start
 
 # install npm and use node v4
@@ -35,18 +35,18 @@ sudo apt-get update
 sudo apt-get install -y mongodb-org
 sudo service mongod start
 
-# install snowgem version of bitcore
-npm install snowgem/bitcore-node-snowgem
+# install TENT version of bitcore
+npm install TENTOfficial/bitcore-node-snowgem
 
 # create bitcore node
-./node_modules/bitcore-node-snowgem/bin/bitcore-node create snowgem-explorer
-cd snowgem-explorer
+./node_modules/bitcore-node-snowgem/bin/bitcore-node create TENT-explorer
+cd TENT-explorer
 
-wget -N https://github.com/Snowgem/Snowgem/releases/download/v3000457-20190909/snowgem-ubuntu16.04-3000457-20190926.zip -O binary.zip
+wget -N https://github.com/TENTOfficial/TENT/releases/download/3.1.0/snowgem-ubuntu-3.1.0-20201117.zip -O binary.zip
 unzip -o binary.zip
 
 # install insight api/ui
-../node_modules/bitcore-node-snowgem/bin/bitcore-node install snowgem/insight-api-snowgem snowgem/insight-ui-snowgem
+../node_modules/bitcore-node-snowgem/bin/bitcore-node install TENTOfficial/insight-api-tent TENTOfficial/insight-ui-tent
 
 # create bitcore config file for bitcore
 cat << EOF > bitcore-node.json
@@ -55,8 +55,8 @@ cat << EOF > bitcore-node.json
   "port": 3001,
   "services": [
     "bitcoind",
-    "insight-api-snowgem",
-    "insight-ui-snowgem",
+    "insight-api-tent",
+    "insight-ui-tent",
     "web"
   ],
   "servicesConfig": {
@@ -66,10 +66,10 @@ cat << EOF > bitcore-node.json
         "exec": "./snowgemd"
       }
     },
-     "insight-ui-snowgem": {
+     "insight-ui-tent": {
       "apiPrefix": "api"
      },
-    "insight-api-snowgem": {
+    "insight-api-tent": {
       "routePrefix": "api"
     }
   }
@@ -99,20 +99,20 @@ maxconnections=100
 
 EOF
 
-curl https://raw.githubusercontent.com/Snowgem/masternode-setup/master/fetch-params.sh > fetch-params.sh
+curl https://raw.githubusercontent.com/TENTOfficial/masternode-setup/master/fetch-params.sh > fetch-params.sh
 chmod +x fetch-params.sh
 ./fetch-params.sh
 
 #remove old one
-if [ -f /lib/systemd/system/snowgem_insight.service ]; then
-  systemctl disable --now snowgem_insight.service
-  rm /lib/systemd/system/snowgem_insight.service
+if [ -f /lib/systemd/system/tent_insight.service ]; then
+  systemctl disable --now tent_insight.service
+  rm /lib/systemd/system/tent_insight.service
 fi
 
 echo "Creating service file..."
 
 service="echo '[Unit]
-Description=SnowGem Insight - Block Explorer for Snowgem
+Description=TENT Insight - Block Explorer for TENT
 After=network-online.target
 
 [Service]
@@ -120,22 +120,22 @@ User=root
 Group=root
 Restart=always
 RestartSec=30s
-WorkingDirectory=/root/snowgem-explorer
-ExecStart=/root/snowgem-explorer/node_modules/bitcore-node-snowgem/bin/bitcore-node start
+WorkingDirectory=/root/TENT-explorer
+ExecStart=/root/TENT-explorer/node_modules/bitcore-node-snowgem/bin/bitcore-node start
 StandardOutput=syslog
 StandardError=syslog
-SyslogIdentifier=snowgem-insight
+SyslogIdentifier=TENT-insight
 
 [Install]
-WantedBy=default.target' >> /lib/systemd/system/snowgem_insight.service"
+WantedBy=default.target' >> /lib/systemd/system/tent_insight.service"
 
 echo $service
 sh -c "$service"
 
-cd ~/snowgem-explorer
+cd ~/TENT-explorer
 
-systemctl enable snowgem_insight.service
-systemctl start snowgem_insight.service
+systemctl enable tent_insight.service
+systemctl start tent_insight.service
 
 echo "Start the block explorer, open in your browser http://server_ip:3001"
 # echo "./node_modules/bitcore-node-snowgem/bin/bitcore-node start"
