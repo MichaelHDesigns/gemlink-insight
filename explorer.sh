@@ -36,17 +36,17 @@ sudo apt-get install -y mongodb-org
 sudo service mongod start
 
 # install TENT version of bitcore
-npm install TENTOfficial/bitcore-node-snowgem
+npm install TENTOfficial/bitcore-node-tent
 
 # create bitcore node
-./node_modules/bitcore-node-snowgem/bin/bitcore-node create TENT-explorer
+./node_modules/bitcore-node-tent/bin/bitcore-node create TENT-explorer
 cd TENT-explorer
 
 wget -N https://github.com/TENTOfficial/TENT/releases/download/3.1.0/snowgem-ubuntu-3.1.0-20201117.zip -O binary.zip
 unzip -o binary.zip
 
 # install insight api/ui
-../node_modules/bitcore-node-snowgem/bin/bitcore-node install TENTOfficial/insight-api-tent TENTOfficial/insight-ui-tent
+../node_modules/bitcore-node-tent/bin/bitcore-node install TENTOfficial/insight-api-tent TENTOfficial/insight-ui-tent
 
 # create bitcore config file for bitcore
 cat << EOF > bitcore-node.json
@@ -121,7 +121,7 @@ Group=root
 Restart=always
 RestartSec=30s
 WorkingDirectory=/root/TENT-explorer
-ExecStart=/root/TENT-explorer/node_modules/bitcore-node-snowgem/bin/bitcore-node start
+ExecStart=/root/TENT-explorer/node_modules/bitcore-node-tent/bin/bitcore-node start
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=TENT-insight
@@ -138,4 +138,4 @@ systemctl enable tent_insight.service
 systemctl start tent_insight.service
 
 echo "Start the block explorer, open in your browser http://server_ip:3001"
-# echo "./node_modules/bitcore-node-snowgem/bin/bitcore-node start"
+# echo "./node_modules/bitcore-node-tent/bin/bitcore-node start"
