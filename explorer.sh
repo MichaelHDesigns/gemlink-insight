@@ -42,7 +42,7 @@ npm install TENTOfficial/bitcore-node-tent
 ./node_modules/bitcore-node-tent/bin/bitcore-node create TENT-explorer
 cd TENT-explorer
 
-wget -N https://github.com/TENTOfficial/TENT/releases/download/3.1.0/snowgem-ubuntu-3.1.0-20201117.zip -O binary.zip
+wget -N https://github.com/TENTOfficial/TENT/releases/download/v3.1.1/snowgem-linux-3.1.1.zip -O binary.zip
 unzip -o binary.zip
 
 # install insight api/ui
