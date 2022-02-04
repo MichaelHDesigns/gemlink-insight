@@ -35,18 +35,18 @@ sudo apt-get update
 sudo apt-get install -y mongodb-org
 sudo service mongod start
 
-# install TENT version of bitcore
-npm install TENTOfficial/bitcore-node-tent
+# install Gemlink version of bitcore
+npm install gemlink/bitcore-node-gemlink
 
 # create bitcore node
-./node_modules/bitcore-node-tent/bin/bitcore-node create TENT-explorer
-cd TENT-explorer
+./node_modules/bitcore-node-gemlink/bin/bitcore-node create gemlink-explorer
+cd gemlink-explorer
 
-wget -N https://github.com/TENTOfficial/TENT/releases/download/v3.1.1/snowgem-linux-3.1.1.zip -O binary.zip
-unzip -o binary.zip
+# wget -N https://github.com/TENTOfficial/TENT/releases/download/v3.1.1/snowgem-linux-3.1.1.zip -O binary.zip
+# unzip -o binary.zip
 
 # install insight api/ui
-../node_modules/bitcore-node-tent/bin/bitcore-node install TENTOfficial/insight-api-tent TENTOfficial/insight-ui-tent
+../node_modules/bitcore-node-gemlink/bin/bitcore-node install gemlink/insight-api-gemlink gemlink/insight-ui-gemlink
 
 # create bitcore config file for bitcore
 cat << EOF > bitcore-node.json
@@ -55,21 +55,21 @@ cat << EOF > bitcore-node.json
   "port": 3001,
   "services": [
     "bitcoind",
-    "insight-api-tent",
-    "insight-ui-tent",
+    "insight-api-gemlink",
+    "insight-ui-gemlink",
     "web"
   ],
   "servicesConfig": {
     "bitcoind": {
       "spawn": {
         "datadir": "./data",
-        "exec": "./snowgemd"
+        "exec": "./gemlinkd"
       }
     },
-     "insight-ui-tent": {
+     "insight-ui-gemlink": {
       "apiPrefix": "api"
      },
-    "insight-api-tent": {
+    "insight-api-gemlink": {
       "routePrefix": "api"
     }
   }
@@ -79,14 +79,11 @@ EOF
 #need to sync blockchain again with indexed
 
 # create snowgem.conf
-cat << EOF > data/snowgem.conf
+cat << EOF > data/gemlink.conf
 server=1
 whitelist=127.0.0.1
-txindex=1
-addressindex=1
-timestampindex=1
+insightexplorer=1
 masternodeprotection=1
-spentindex=1
 zmqpubrawtx=tcp://127.0.0.1:8332
 zmqpubhashblock=tcp://127.0.0.1:8332
 rpcallowip=127.0.0.1
@@ -99,20 +96,20 @@ maxconnections=100
 
 EOF
 
-curl https://raw.githubusercontent.com/TENTOfficial/masternode-setup/master/fetch-params.sh > fetch-params.sh
+curl https://raw.githubusercontent.com/gemlink/gemlink/master/zcutil/fetch-params.sh > fetch-params.sh
 chmod +x fetch-params.sh
 ./fetch-params.sh
 
 #remove old one
-if [ -f /lib/systemd/system/tent_insight.service ]; then
-  systemctl disable --now tent_insight.service
-  rm /lib/systemd/system/tent_insight.service
+if [ -f /lib/systemd/system/gemlink_insight.service ]; then
+  systemctl disable --now gemlink_insight.service
+  rm /lib/systemd/system/gemlink_insight.service
 fi
 
 echo "Creating service file..."
 
 service="echo '[Unit]
-Description=TENT Insight - Block Explorer for TENT
+Description=Gemlink Insight - Block Explorer for Gemlink
 After=network-online.target
 
 [Service]
@@ -120,22 +117,22 @@ User=root
 Group=root
 Restart=always
 RestartSec=30s
-WorkingDirectory=/root/TENT-explorer
-ExecStart=/root/TENT-explorer/node_modules/bitcore-node-tent/bin/bitcore-node start
+WorkingDirectory=/root/gemlink-explorer
+ExecStart=/root/gemlink-explorer/node_modules/bitcore-node-gemlink/bin/bitcore-node start
 StandardOutput=syslog
 StandardError=syslog
-SyslogIdentifier=TENT-insight
+SyslogIdentifier=gemlink-insight
 
 [Install]
-WantedBy=default.target' >> /lib/systemd/system/tent_insight.service"
+WantedBy=default.target' >> /lib/systemd/system/gemlink_insight.service"
 
 echo $service
 sh -c "$service"
 
-cd ~/TENT-explorer
+cd ~/gemlink-explorer
 
-systemctl enable tent_insight.service
-systemctl start tent_insight.service
+systemctl enable gemlink_insight.service
+systemctl start gemlink_insight.service
 
 echo "Start the block explorer, open in your browser http://server_ip:3001"
-# echo "./node_modules/bitcore-node-tent/bin/bitcore-node start"
+# echo "./node_modules/bitcore-node-gemlink/bin/bitcore-node start"
