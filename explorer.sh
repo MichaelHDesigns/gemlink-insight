@@ -14,7 +14,7 @@ sudo apt-get update
 
 sudo apt-get install \
       build-essential pkg-config libc6-dev m4 g++-multilib \
-      autoconf libtool ncurses-dev unzip git python python-zmq \
+      autoconf libtool libncurses-dev unzip git python-is-python2 \
       zlib1g-dev wget bsdmainutils automake curl apache2 libzmq3-dev
 
 sudo service apache2 start
