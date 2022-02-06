@@ -79,6 +79,7 @@ cat << EOF > data/gemlink.conf
 server=1
 whitelist=127.0.0.1
 insightexplorer=1
+txindex=1
 masternodeprotection=1
 zmqpubrawtx=tcp://127.0.0.1:8332
 zmqpubhashblock=tcp://127.0.0.1:8332
