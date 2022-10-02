@@ -59,7 +59,7 @@ cat << EOF > bitcore-node.json
     "bitcoind": {
       "spawn": {
         "datadir": "./data",
-        "exec": "./gemlinkd"
+        "exec": "./usr/bin/helpthehomelessd"
       }
     },
      "insight-ui-gemlink": {
@@ -75,7 +75,7 @@ EOF
 #need to sync blockchain again with indexed
 
 # create snowgem.conf
-cat << EOF > data/gemlink.conf
+cat << EOF > data/helpthehomeless.conf
 server=1
 whitelist=127.0.0.1
 insightexplorer=1
@@ -88,14 +88,10 @@ rpcuser=bitcoin
 rpcpassword=local321
 uacomment=bitcore
 showmetrics=0
-rpcport=16112
+rpcport=65000
 maxconnections=100
 
 EOF
-
-curl https://raw.githubusercontent.com/gemlink/gemlink/master/zcutil/fetch-params.sh > fetch-params.sh
-chmod +x fetch-params.sh
-./fetch-params.sh
 
 #remove old one
 if [ -f /lib/systemd/system/gemlink_insight.service ]; then
